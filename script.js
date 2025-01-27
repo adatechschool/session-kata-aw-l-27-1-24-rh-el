@@ -20,7 +20,7 @@ class AweleBoard {
     }
 
     isEmpty = () => {
-        return Object.values(this.gameObj).filter((hole) => hole !== 0).length === 0 ? true : false
+        return Object.values(this.gameObj).filter((hole) => hole !== 0).length === 0 ? false : true
     }
 
     init = () => {
@@ -105,15 +105,21 @@ class Player {
 const aweleGame = new AweleBoard
 aweleGame.init()
 
-const adel = new Player("adel", 1)
-const camille = new Player("camille", 2)
+const playerOneName = prompt('enter player one name')
+const playerTwoName = prompt('enter player two name')
+
+const playerOne = new Player(playerOneName, 1)
+const playerTwo = new Player(playerTwoName, 2)
 
 // main game loop
-while (!aweleGame.isEmpty) {
-
-
+let playerTurn = playerOne
+while (aweleGame.isEmpty()) {
+    aweleGame.displayBoard()
+    console.log(`${playerOne.name} score:`, playerOne.score)
+    console.log(`${playerTwo.name} score:`, playerTwo.score)
+    const result = prompt(`it's ${playerTurn.name} turn to play! select a hole between A and L`)
+    aweleGame.saw(result, playerTurn)
+    playerTurn = playerTurn == playerOne ? playerTwo : playerOne
 
 }
 
-aweleGame.saw('E', adel)
-aweleGame.displayBoard()
